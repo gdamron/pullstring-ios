@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -16,52 +16,84 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter Text" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="5dt-Vh-o3K">
-                                <rect key="frame" x="20" y="550" width="560" height="30"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <webView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mZd-Lg-Ymt">
+                                <rect key="frame" x="20" y="20" width="728" height="969"/>
+                                <color key="backgroundColor" red="0.87450980389999999" green="0.10980392160000001" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter Text" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="5dt-Vh-o3K">
+                                <rect key="frame" x="20" y="994" width="554" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Iho-TS-aWU"/>
                                 </connections>
                             </textField>
-                            <webView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mZd-Lg-Ymt">
-                                <rect key="frame" x="22" y="20" width="558" height="510"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Azd-6D-r2A">
+                                <rect key="frame" x="703" y="994" width="45" height="30"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="  No  ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="noPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a87-IJ-VE0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rpc-pv-IfP">
+                                <rect key="frame" x="650" y="994" width="45" height="30"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="  Yes  ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="yesPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lMD-15-EYM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQk-be-Hdc">
+                                <rect key="frame" x="582" y="994" width="60" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="  Send  ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TMD-ar-ftR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="5dt-Vh-o3K" firstAttribute="top" secondItem="mZd-Lg-Ymt" secondAttribute="bottom" constant="20" id="0tk-ze-Tg2"/>
-                            <constraint firstItem="mZd-Lg-Ymt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="2Ac-at-2iM"/>
-                            <constraint firstItem="5dt-Vh-o3K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="3gW-yx-dzI"/>
-                            <constraint firstItem="mZd-Lg-Ymt" firstAttribute="trailing" secondItem="5dt-Vh-o3K" secondAttribute="trailing" id="8HU-FG-4eX"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5dt-Vh-o3K" secondAttribute="bottom" constant="20" id="SVp-Cl-QiS"/>
-                            <constraint firstItem="mZd-Lg-Ymt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="1" id="TaI-c9-7RK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5dt-Vh-o3K" secondAttribute="trailing" constant="-20" id="VJk-84-bEY"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5dt-Vh-o3K" secondAttribute="bottom" constant="20" id="Wic-0A-UgE"/>
-                            <constraint firstItem="mZd-Lg-Ymt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="adK-9M-YYg"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5dt-Vh-o3K" secondAttribute="bottom" constant="20" id="dCH-7S-wuU"/>
-                            <constraint firstItem="5dt-Vh-o3K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="e9j-QH-M9X"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5dt-Vh-o3K" secondAttribute="trailing" id="gin-8p-EX2"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5dt-Vh-o3K" secondAttribute="bottom" id="j1f-Y6-UFu"/>
+                            <constraint firstItem="aQk-be-Hdc" firstAttribute="trailing" secondItem="Rpc-pv-IfP" secondAttribute="leading" constant="-8" id="3h0-eD-E21"/>
+                            <constraint firstItem="mZd-Lg-Ymt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="8wg-2v-QYM"/>
+                            <constraint firstItem="5dt-Vh-o3K" firstAttribute="trailing" secondItem="aQk-be-Hdc" secondAttribute="leading" constant="-8" id="BGk-PG-IoV"/>
+                            <constraint firstItem="Azd-6D-r2A" firstAttribute="height" secondItem="5dt-Vh-o3K" secondAttribute="height" priority="998" id="F5v-Hb-aJQ"/>
+                            <constraint firstItem="Azd-6D-r2A" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Htb-6l-ZPV"/>
+                            <constraint firstItem="Rpc-pv-IfP" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="WFu-ay-Yf7"/>
+                            <constraint firstItem="5dt-Vh-o3K" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="eKM-BD-UDA"/>
+                            <constraint firstItem="mZd-Lg-Ymt" firstAttribute="bottom" secondItem="5dt-Vh-o3K" secondAttribute="top" constant="-5" id="foF-11-sTK"/>
+                            <constraint firstItem="Azd-6D-r2A" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="kTk-DT-Dts"/>
+                            <constraint firstItem="5dt-Vh-o3K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ncL-n0-XoJ"/>
+                            <constraint firstItem="Rpc-pv-IfP" firstAttribute="trailing" secondItem="Azd-6D-r2A" secondAttribute="leading" constant="-8" id="nvX-R9-SrI"/>
+                            <constraint firstItem="aQk-be-Hdc" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="o7f-AD-vgt"/>
+                            <constraint firstItem="aQk-be-Hdc" firstAttribute="height" secondItem="Rpc-pv-IfP" secondAttribute="height" id="tSt-qK-17B"/>
+                            <constraint firstItem="mZd-Lg-Ymt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="uAu-o7-Voa"/>
+                            <constraint firstItem="mZd-Lg-Ymt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="wCi-UP-KG9"/>
+                            <constraint firstItem="Rpc-pv-IfP" firstAttribute="height" secondItem="Azd-6D-r2A" secondAttribute="height" id="ydj-Sm-aR9"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="VJk-84-bEY"/>
-                                <exclude reference="e9j-QH-M9X"/>
-                                <exclude reference="Wic-0A-UgE"/>
-                                <exclude reference="dCH-7S-wuU"/>
-                                <exclude reference="j1f-Y6-UFu"/>
-                            </mask>
-                        </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
-                        <outlet property="textField" destination="5dt-Vh-o3K" id="1eG-T6-bvW"/>
+                        <outlet property="entryField" destination="5dt-Vh-o3K" id="bsB-UE-Fi0"/>
+                        <outlet property="textField" destination="5dt-Vh-o3K" id="45a-2p-hRW"/>
                         <outlet property="webView" destination="mZd-Lg-Ymt" id="3BA-pa-dX5"/>
                     </connections>
                 </viewController>

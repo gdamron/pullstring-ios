@@ -14,7 +14,7 @@
 {
     if ( self = [super init] ) {
         self.apiKey = [NSString new];
-        self.stateId = [NSString new];
+        self.participantId = [NSString new];
         self.buildType = PSBuildTypeProduction;
         self.language = [NSString new];
         self.locale = [NSString new];

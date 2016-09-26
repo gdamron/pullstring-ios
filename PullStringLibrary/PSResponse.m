@@ -157,7 +157,7 @@
         self.conversationEndpoint = [NSString new];
         self.lastModified = [NSString new];
         self.conversationId = [NSString new];
-        self.stateId = [NSString new];
+        self.participantId = [NSString new];
         self.timedResponseInterval = -1.0;
         self.asrHypothesis = [NSString new];
     }

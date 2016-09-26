@@ -11,4 +11,9 @@
 
 @implementation AppDelegate
 
+
+- (void) applicationDidFinishLaunching:(UIApplication *)application
+{
+    self.window.backgroundColor = [UIColor whiteColor];
+}
 @end

@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, PSBuildType) {
 @interface PSRequest : NSObject
 
 @property NSString    *apiKey;
-@property NSString    *stateId;
+@property NSString    *participantId;
 @property PSBuildType buildType;
 @property NSString    *conversationId;
 @property NSString    *language;

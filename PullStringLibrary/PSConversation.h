@@ -145,8 +145,8 @@ withCompletion: (void (^)(PSResponse *response))block;
 - (NSString *) getConversationId;
 
 ///
-/// Return the current state ID for clients to persist across sessions if desired.
+/// Return the current participant ID for clients to persist across sessions if desired.
 ///
-- (NSString *) getStateId;
+- (NSString *) getParticipantId;
 
 @end

@@ -176,17 +176,17 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
     }];
     [self waitForTestToFinish];
 
-    // start a new conversation but carry over the state from above
+    // start a new conversation but carry over the participant state from above
     PSRequest *newRequest = [PSRequest new];
     newRequest.apiKey = API_KEY;
-    newRequest.stateId = [conv getStateId];
+    newRequest.participantId = [conv getParticipantId];
     [conv start:PROJECT_ID withRequest:newRequest withCompletion:^(PSResponse *response){
         [self assertContains:response text:@"Do you want to play"];
         [self signalThatTestIsFinished];
     }];
     [self waitForTestToFinish];
 
-    // because we preserved state, the Name label should be the same as above
+    // because we preserved participant state, the Name label should be the same as above
     [conv getEntities:entities withRequest:nil withCompletion:^(PSResponse *response){
         XCTAssert(response != nil);
         int num_entities = (int)[response.entities count];

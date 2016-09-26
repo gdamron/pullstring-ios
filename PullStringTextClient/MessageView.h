@@ -27,5 +27,8 @@
 /// Subclasses can override this to detect new user input
 - (void) textEntered: (NSString *) text;
 
+/// Subclasses can override this to send audio data
+- (void) sendAudio: (NSString *) name;
+
 @end
 

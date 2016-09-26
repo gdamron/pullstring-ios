@@ -90,7 +90,7 @@ typedef NS_ENUM(NSInteger, PSEntityType) {
 @property NSString *conversationEndpoint;
 @property NSString *lastModified;
 @property NSString *conversationId;
-@property NSString *stateId;
+@property NSString *participantId;
 @property double   timedResponseInterval;
 @property NSString *asrHypothesis;
 @end

@@ -40,6 +40,10 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
 
 - (void) textEntered: (NSString *)text
 {
+    if ([text length] == 0) {
+        return;
+    }
+
     // cancel time-based responses if user entered new text
     [self cancelTimer];
     
@@ -54,7 +58,7 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
      }];
 }
 
-- (void) sendAudioFile: (NSString *)name
+- (void) sendAudio: (NSString *)name
 {
     // get the path to the audio file in the app bundle
     NSString *path = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], name];

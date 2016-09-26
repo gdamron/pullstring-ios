@@ -13,6 +13,8 @@
 {
     NSMutableArray *lines;
 }
+@property (weak, nonatomic) IBOutlet UITextField *entryField;
+
 @end
 
 @implementation MessageView
@@ -21,7 +23,7 @@
 {
     [super viewDidLoad];
     [self.textField becomeFirstResponder];
-    lines = [NSMutableArray new];
+    lines = [NSMutableArray new];    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,27 +61,54 @@
 
 - (void)keyboardWillBeShown:(NSNotification *)notification
 {
-    NSDictionary* info = [notification userInfo];
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:.3];
-    [UIView setAnimationBeginsFromCurrentState:TRUE];
-    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - keyboardSize.height,
-                                 self.view.frame.size.width, self.view.frame.size.height);
-    [UIView commitAnimations];
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    [self ensureTextFieldVisible:self.entryField keyboardSize:keyboardSize];
 }
 
-- (void)keyboardWillBeHidden:(NSNotification *)notification
+-(void)keyboardWillBeHidden:(NSNotification *)notification
 {
-    NSDictionary* info = [notification userInfo];
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:.3];
-    [UIView setAnimationBeginsFromCurrentState:TRUE];
-    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + keyboardSize.height,
-                                 self.view.frame.size.width, self.view.frame.size.height);
-    [UIView commitAnimations];
+    [self resetToInitialView];
 }
+
+-(void) ensureTextFieldVisible:(UITextField *)textField keyboardSize:(CGSize)keyboardSize;
+{
+    if (textField == nil) {
+        return;
+    }
+    
+    // are we obscuring the field?
+    CGRect viewRect = self.view.bounds;
+    viewRect.size.height -= keyboardSize.height;
+    CGPoint pointInView = [textField convertPoint:CGPointMake(
+                                                              0,textField.frame.size.height) toView:self.view];
+    
+    if (!CGRectContainsPoint(viewRect, pointInView)) {
+        float spacing = 10;
+        if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+            spacing = 3;
+        }
+        
+        float moveBy = keyboardSize.height + spacing;
+        [UIView animateWithDuration:0.3 animations:^{
+            UIView *viewToMove = self.view;
+            
+            CGRect f = viewToMove.frame;
+            f.origin.y = -moveBy;
+            viewToMove.frame = f;
+        }];
+    }
+}
+
+-(void) resetToInitialView
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect f = self.view.frame;
+        f.origin.y = 0;
+        self.view.frame = f;
+    }];
+}
+
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -94,6 +123,26 @@
 - (void) textEntered: (NSString *) text
 {
     // override in subclass
+}
+
+- (void) sendAudio: (NSString *) name
+{
+    // override in subclass
+}
+
+- (IBAction) sendPressed: (id) sender
+{
+    [self textEntered:self.textField.text];
+}
+
+- (IBAction) yesPressed: (id) sender
+{
+    [self sendAudio:@"yes.wav"];
+}
+
+- (IBAction) noPressed: (id) sender
+{
+    [self sendAudio:@"no.wav"];
 }
 
 - (void) addOutput: (NSString *) output asUser:(BOOL)user

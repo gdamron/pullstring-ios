@@ -37,7 +37,7 @@ withCompletion: (void (^)(PSResponse *response))block
                           nil];
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                   (request && request.stateId) ? request.stateId : @"", @"state",
+                                   (request && request.participantId) ? request.participantId : @"", @"participant",
                                    nil];
 
     lastRequest = nil;
@@ -299,10 +299,10 @@ withCompletion: (void (^)(PSResponse *response))block
     }
 }
 
-- (NSString *) getStateId
+- (NSString *) getParticipantId
 {
     if (lastResponse) {
-        return lastResponse.stateId;
+        return lastResponse.participantId;
     } else {
         return @"";
     }
@@ -330,8 +330,8 @@ withCompletion: (void (^)(PSResponse *response))block
     
     r.apiKey = (! [self isEmptyString: new_request.apiKey]) ?
         new_request.apiKey : old_request.apiKey;
-    r.stateId = (! [self isEmptyString: new_request.stateId]) ?
-        new_request.stateId : old_request.stateId;
+    r.participantId = (! [self isEmptyString: new_request.participantId]) ?
+        new_request.participantId : old_request.participantId;
     r.buildType = (new_request.buildType != PSBuildTypeProduction) ?
         new_request.buildType : old_request.buildType;
     r.conversationId = (! [self isEmptyString: new_request.conversationId]) ?
@@ -488,7 +488,7 @@ withCompletion: (void (^)(PSResponse *response))block
     
     // parse out the top-level entries in the JSON response
     r.conversationId = [self stringForKey:json key:@"conversation"];
-    r.stateId = [self stringForKey:json key:@"state"];
+    r.participantId = [self stringForKey:json key:@"participant"];
     r.lastModified = [self stringForKey:json key:@"last_modified"];
     r.asrHypothesis = [self stringForKey:json key:@"asr_hypothesis"];
     r.timedResponseInterval = [self doubleForKey:json key: @"timed_response_interval" defaultValue:-1.0];
