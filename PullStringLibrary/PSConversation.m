@@ -265,14 +265,14 @@ withCompletion: (void (^)(PSResponse *response))block
     
     for (PSEntity *entity in entities) {
         if (entity.type == PSEntityLabel) {
-            PSLabelEntity *label = (PSLabelEntity *) entity;
+            PSLabel *label = (PSLabel *) entity;
             [values setObject:label.value forKey:entity.name];
         } else if (entity.type == PSEntityCounter) {
-            PSCounterEntity *counter = (PSCounterEntity *) entity;
+            PSCounter *counter = (PSCounter *) entity;
             NSNumber *value = [[NSNumber alloc] initWithDouble: counter.value];
             [values setObject:value forKey:entity.name];
         } else if (entity.type == PSEntityFlag) {
-            PSFlagEntity *flag = (PSFlagEntity *) entity;
+            PSFlag *flag = (PSFlag *) entity;
             NSNumber *value = [[NSNumber alloc] initWithBool:flag.value];
             [values setObject:value forKey:entity.name];
         }
@@ -552,13 +552,13 @@ withCompletion: (void (^)(PSResponse *response))block
                 
                 if ([className rangeOfString:@"NSCFNumber"].location != NSNotFound) {
                     // parse out numbers as counters
-                    PSCounterEntity *counter = [PSCounterEntity new];
+                    PSCounter *counter = [PSCounter new];
                     counter.name = key;
                     counter.value = [number_value doubleValue];
                     [entities addObject:counter];
                 } else if  ([className rangeOfString:@"NSCFBoolean"].location != NSNotFound) {
                     // parse out booleans as flags
-                    PSFlagEntity *flag = [PSFlagEntity new];
+                    PSFlag *flag = [PSFlag new];
                     flag.name = key;
                     NSNumber *number_value = (NSNumber *)value;
                     flag.value = [number_value boolValue];
@@ -567,7 +567,7 @@ withCompletion: (void (^)(PSResponse *response))block
                 
             } else if ([value isKindOfClass:[NSString class]]) {
                 // parse out strings as labels
-                PSLabelEntity *label = [PSLabelEntity new];
+                PSLabel *label = [PSLabel new];
                 label.name = key;
                 label.value = (NSString *)value;
                 [entities addObject:label];

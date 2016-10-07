@@ -39,7 +39,7 @@
 }
 @end
 
-@implementation PSLabelEntity
+@implementation PSLabel
 - (id) init
 {
     if ( self = [super init] ) {
@@ -58,7 +58,7 @@
 }
 @end
 
-@implementation PSCounterEntity
+@implementation PSCounter
 - (id) init
 {
     if ( self = [super init] ) {
@@ -77,7 +77,7 @@
 }
 @end
 
-@implementation PSFlagEntity
+@implementation PSFlag
 - (id) init
 {
     if ( self = [super init] ) {

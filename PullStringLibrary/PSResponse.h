@@ -36,19 +36,19 @@ typedef NS_ENUM(NSInteger, PSEntityType) {
 @end
 
 /// Subclass of Entity to describe a single Label
-@interface PSLabelEntity : PSEntity
+@interface PSLabel : PSEntity
 @property NSString *value;
 - (id) initWithName: (NSString *) entityName andValue: (NSString *)value;
 @end
 
 /// Subclass of Entity to describe a single Counter
-@interface PSCounterEntity : PSEntity
+@interface PSCounter : PSEntity
 @property double value;
 - (id) initWithName: (NSString *) entityName andValue: (double)value;
 @end
 
 /// Subclass of Entity to describe a single Flag
-@interface PSFlagEntity : PSEntity
+@interface PSFlag : PSEntity
 @property BOOL value;
 - (id) initWithName: (NSString *) entityName andValue: (BOOL)value;
 @end

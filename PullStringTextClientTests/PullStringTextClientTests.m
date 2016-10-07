@@ -102,7 +102,7 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
 
     // query the current value of the Player Score counter (it's 4 at the start)
     NSMutableArray *entities = [NSMutableArray new];
-    [entities addObject:[[PSCounterEntity alloc] initWithName:@"Player Score"]];
+    [entities addObject:[[PSCounter alloc] initWithName:@"Player Score"]];
     [conv getEntities:entities withRequest:nil withCompletion:^(PSResponse *response){
         XCTAssert(response != nil);
         int num_entities = (int)[response.entities count];
@@ -110,7 +110,7 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
         if (num_entities > 0) {
             PSEntity *entity = [response.entities objectAtIndex:0];
             XCTAssert(entity != nil && entity.type == PSEntityCounter);
-            PSCounterEntity *counter = (PSCounterEntity *) entity;
+            PSCounter *counter = (PSCounter *) entity;
             XCTAssert(counter.value == 4);
         }
         [self signalThatTestIsFinished];
@@ -140,7 +140,7 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
     
     // set the Name label and confirm that we can get back the new value
     entities = [NSMutableArray new];
-    [entities addObject:[[PSLabelEntity alloc] initWithName:@"NAME" andValue:@"Jack"]];
+    [entities addObject:[[PSLabel alloc] initWithName:@"NAME" andValue:@"Jack"]];
     [conv setEntities:entities withRequest:nil withCompletion:^(PSResponse *response){
         XCTAssert(response != nil);
         int num_entities = (int)[response.entities count];
@@ -148,7 +148,7 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
         if (num_entities > 0) {
             PSEntity *entity = [response.entities objectAtIndex:0];
             XCTAssert(entity != nil && entity.type == PSEntityLabel);
-            PSLabelEntity *label = (PSLabelEntity *) entity;
+            PSLabel *label = (PSLabel *) entity;
             XCTAssert([label.value isEqualToString:@"Jack"]);
         }
         [self signalThatTestIsFinished];
@@ -162,7 +162,7 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
         if (num_entities > 0) {
             PSEntity *entity = [response.entities objectAtIndex:0];
             XCTAssert(entity != nil && entity.type == PSEntityLabel);
-            PSLabelEntity *label = (PSLabelEntity *) entity;
+            PSLabel *label = (PSLabel *) entity;
             XCTAssert([label.value isEqualToString:@"Jack"]);
         }
         [self signalThatTestIsFinished];
@@ -194,7 +194,7 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
         if (num_entities > 0) {
             PSEntity *entity = [response.entities objectAtIndex:0];
             XCTAssert(entity != nil && entity.type == PSEntityLabel);
-            PSLabelEntity *label = (PSLabelEntity *) entity;
+            PSLabel *label = (PSLabel *) entity;
             XCTAssert([label.value isEqualToString:@"Jack"]);
         }
         [self signalThatTestIsFinished];
