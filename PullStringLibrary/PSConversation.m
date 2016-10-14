@@ -31,20 +31,25 @@ withCompletion: (void (^)(PSResponse *response))block
     projectName = [projectName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     projectName = [projectName lowercaseString];
 
+    NSString *build_type = @"";
+    if (request && request.buildType == PSBuildTypeSandbox) {
+        build_type = @"sandbox";
+    } else if (request && request.buildType == PSBuildTypeStaging) {
+        build_type = @"staging";
+    }
+
     NSDictionary *body = [[NSDictionary alloc] initWithObjectsAndKeys:
                           projectName, @"project",
+                          build_type, @"build_type",
                           [NSNumber numberWithInt:(request) ? request.timeZoneOffset : 0], @"time_zone_offset",
+                          (request && request.participantId) ? request.participantId : @"", @"participant",
                           nil];
-
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                   (request && request.participantId) ? request.participantId : @"", @"participant",
-                                   nil];
 
     lastRequest = nil;
     lastResponse = nil;
     
     [self sendRequest: [self psGetEndpoint:false]
-      withQueryParams: params
+      withQueryParams: nil
              withBody: [self dictionaryToJson:body]
           withHeaders: nil
           withRequest: request
@@ -179,7 +184,7 @@ withCompletion: (void (^)(PSResponse *response))block
     }
     
     // check the RIFF header
-    char *bytes = [data bytes];
+    const char *bytes = [data bytes];
     if (bytes[0] != 'R' || bytes[1] != 'I' || bytes[2] != 'F' || bytes[3] != 'F') {
         NSLog(@"Data is now a WAV file");
         return nil;
@@ -198,7 +203,7 @@ withCompletion: (void (^)(PSResponse *response))block
     // subchunks looking for a chunk called 'data' (don't assume 44
     // bytes). First chunk at 12 bytes (4 bytes name, 4 bytes size).
     int offset = 12;
-    char *chunkName = bytes + offset;
+    const char *chunkName = bytes + offset;
     int chunkSize = CFSwapInt32LittleToHost(*((uint32_t *)(bytes+offset+4)));
     int fileSize = CFSwapInt32LittleToHost(*((uint32_t *)(bytes+4)));
     while (chunkName[0] != 'd' || chunkName[1] != 'a' || chunkName[2] != 't' || chunkName[3] != 'a') {
@@ -332,6 +337,8 @@ withCompletion: (void (^)(PSResponse *response))block
         new_request.apiKey : old_request.apiKey;
     r.participantId = (! [self isEmptyString: new_request.participantId]) ?
         new_request.participantId : old_request.participantId;
+    r.restartIfModified = (new_request.restartIfModified == NO) ?
+        new_request.restartIfModified : old_request.restartIfModified;
     r.buildType = (new_request.buildType != PSBuildTypeProduction) ?
         new_request.buildType : old_request.buildType;
     r.conversationId = (! [self isEmptyString: new_request.conversationId]) ?
@@ -360,12 +367,6 @@ withCompletion: (void (^)(PSResponse *response))block
         params = [NSMutableDictionary new];
     }
     
-    if (request.buildType == PSBuildTypeSandbox) {
-        [params setObject:@"sandbox" forKey:@"build_type"];
-    } else if (request.buildType == PSBuildTypeStaging) {
-        [params setObject:@"staging" forKey:@"build_type"];
-    }
-
     if (! [self isEmptyString: request.language]) {
         [params setObject:request.language forKey:@"language"];
     } else {
@@ -374,6 +375,10 @@ withCompletion: (void (^)(PSResponse *response))block
     
     if (! [self isEmptyString: request.locale]) {
         [params setObject:request.locale forKey:@"locale"];
+    }
+
+    if (! request.restartIfModified) {
+        [params setObject:@"false" forKey:@"restart_if_modified"];
     }
     
     if (! headers) {
@@ -454,7 +459,7 @@ withCompletion: (void (^)(PSResponse *response))block
     PSResponse *r = [PSResponse new];
     
     // fill in the status of the response based on the HTTP code
-    r.status.statusCode = [response statusCode];
+    r.status.statusCode = (int)[response statusCode];
     r.status.success = (r.status.statusCode < 400);
     
     // return with an error if we got an HTTP error code
@@ -624,7 +629,8 @@ withCompletion: (void (^)(PSResponse *response))block
     
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        PSResponse *r = [self httpResponseToPsResponse:data httpResponse:response error: error];
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+        PSResponse *r = [self httpResponseToPsResponse:data httpResponse:httpResponse error: error];
         if (block) {
             block(r);
         }

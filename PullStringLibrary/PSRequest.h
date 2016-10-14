@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, PSBuildType) {
 
 @property NSString    *apiKey;
 @property NSString    *participantId;
+@property BOOL        restartIfModified;
 @property PSBuildType buildType;
 @property NSString    *conversationId;
 @property NSString    *language;
