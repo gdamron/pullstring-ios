@@ -495,6 +495,7 @@ withCompletion: (void (^)(PSResponse *response))block
     r.conversationId = [self stringForKey:json key:@"conversation"];
     r.participantId = [self stringForKey:json key:@"participant"];
     r.lastModified = [self stringForKey:json key:@"last_modified"];
+    r.etag = [self stringForKey:json key:@"etag"];
     r.asrHypothesis = [self stringForKey:json key:@"asr_hypothesis"];
     r.timedResponseInterval = [self doubleForKey:json key: @"timed_response_interval" defaultValue:-1.0];
     

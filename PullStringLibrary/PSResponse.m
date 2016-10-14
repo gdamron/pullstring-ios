@@ -156,6 +156,7 @@
         self.status = [PSStatus new];
         self.conversationEndpoint = [NSString new];
         self.lastModified = [NSString new];
+        self.etag = [NSString new];
         self.conversationId = [NSString new];
         self.participantId = [NSString new];
         self.timedResponseInterval = -1.0;

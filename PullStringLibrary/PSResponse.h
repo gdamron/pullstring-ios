@@ -89,6 +89,7 @@ typedef NS_ENUM(NSInteger, PSEntityType) {
 @property PSStatus *status;
 @property NSString *conversationEndpoint;
 @property NSString *lastModified;
+@property NSString *etag;
 @property NSString *conversationId;
 @property NSString *participantId;
 @property double   timedResponseInterval;
