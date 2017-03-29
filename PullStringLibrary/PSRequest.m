@@ -15,6 +15,7 @@
     if ( self = [super init] ) {
         self.apiKey = [NSString new];
         self.participantId = [NSString new];
+        self.ifModifiedAction = PSIfModifiedActionNothing;
         self.restartIfModified = YES;
         self.buildType = PSBuildTypeProduction;
         self.language = [NSString new];

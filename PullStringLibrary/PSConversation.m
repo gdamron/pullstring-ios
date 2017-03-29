@@ -377,8 +377,17 @@ withCompletion: (void (^)(PSResponse *response))block
         [params setObject:request.locale forKey:@"locale"];
     }
 
+    // Only set restart_if_modified or if_modified if not using default value. Legacy
+    // restart_if_modified behavior takes precedence.
     if (! request.restartIfModified) {
         [params setObject:@"false" forKey:@"restart_if_modified"];
+    } else if (request.ifModifiedAction != PSIfModifiedActionNothing) {
+        if (request.ifModifiedAction == PSIfModifiedActionRestart) {
+            [params setObject:@"restart" forKey:@"if_modified"];
+        } else if (request.ifModifiedAction == PSIfModifiedActionUpdate) {
+            [params setObject:@"update" forKey:@"if_modified"];
+        }
+        
     }
     
     if (! headers) {

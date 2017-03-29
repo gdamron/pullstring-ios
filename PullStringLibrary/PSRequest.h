@@ -16,16 +16,23 @@ typedef NS_ENUM(NSInteger, PSBuildType) {
     PSBuildTypeProduction
 };
 
+typedef NS_ENUM(NSInteger, PSIfModifiedAction) {
+    PSIfModifiedActionRestart,
+    PSIfModifiedActionUpdate,
+    PSIfModifiedActionNothing
+};
+
 /// Describe the parameters for a request to the PullString Web API
 @interface PSRequest : NSObject
 
-@property NSString    *apiKey;
-@property NSString    *participantId;
-@property BOOL        restartIfModified;
-@property PSBuildType buildType;
-@property NSString    *conversationId;
-@property NSString    *language;
-@property NSString    *locale;
-@property int         timeZoneOffset;
+@property NSString              *apiKey;
+@property NSString              *participantId;
+@property PSIfModifiedAction    ifModifiedAction;
+@property BOOL                  restartIfModified;
+@property PSBuildType           buildType;
+@property NSString              *conversationId;
+@property NSString              *language;
+@property NSString              *locale;
+@property int                   timeZoneOffset;
 
 @end
