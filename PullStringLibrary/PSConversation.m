@@ -72,6 +72,45 @@ withCompletion: (void (^)(PSResponse *response))block
        withCompletion: block];
 }
 
+- (void) sendIntent:(NSString *)intent
+       withEntities:(NSArray *)entities
+        withRequest:(PSRequest *)request
+     withCompletion:(void (^)(PSResponse *))block
+{
+    NSMutableDictionary *body = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                 intent, @"intent",
+                                 nil];
+    
+    if (entities && entities.count)
+    {
+        NSMutableDictionary *values = [NSMutableDictionary new];
+        
+        for (PSEntity *entity in entities) {
+            if (entity.type == PSEntityLabel) {
+                PSLabel *label = (PSLabel *) entity;
+                [values setObject:label.value forKey:entity.name];
+            } else if (entity.type == PSEntityCounter) {
+                PSCounter *counter = (PSCounter *) entity;
+                NSNumber *value = [[NSNumber alloc] initWithDouble: counter.value];
+                [values setObject:value forKey:entity.name];
+            } else if (entity.type == PSEntityFlag) {
+                PSFlag *flag = (PSFlag *) entity;
+                NSNumber *value = [[NSNumber alloc] initWithBool:flag.value];
+                [values setObject:value forKey:entity.name];
+            }
+        }
+        
+        [body setObject: values forKey: @"set_entities"];
+    }
+    
+    [self sendRequest: [self psGetEndpoint: true]
+      withQueryParams: nil
+             withBody: [self dictionaryToJson: body]
+          withHeaders: nil
+          withRequest: request
+       withCompletion: block];
+}
+
 - (void) sendActivity: (NSString *) activity
           withRequest: (PSRequest *) request
        withCompletion: (void (^)(PSResponse *response))block

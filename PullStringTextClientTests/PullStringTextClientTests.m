@@ -10,8 +10,10 @@
 #import "PullStringLibrary.h"
 #import <XCTest/XCTest.h>
 
-static NSString *API_KEY    = @"9fd2a189-3d57-4c02-8a55-5f0159bff2cf";
-static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
+static NSString *API_KEY           = @"9fd2a189-3d57-4c02-8a55-5f0159bff2cf";
+static NSString *PROJECT_ID        = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
+static NSString *INTENT_API_KEY    = @"36890c35-8ecd-4ac4-9538-6c75eb1ea6f6";
+static NSString *INTENT_PROJECT_ID = @"176a87fb-4d3c-fde5-4b3c-54f18c2d99a4";
 
 @interface PullStringTextClientTests : XCTestCase
 {
@@ -67,6 +69,27 @@ static NSString *PROJECT_ID = @"e50b56df-95b7-4fa1-9061-83a7a9bea372";
 - (void) waitForTestToFinish
 {
     dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+}
+
+- (void) testIntents
+{
+    request.apiKey = INTENT_API_KEY;
+    
+    // start a new conversation that contains third party intents
+    [conv start: INTENT_PROJECT_ID withRequest:request withCompletion:^(PSResponse *response) {
+        [self assertContains: response text:@"Welcome to the LUIS test. What do you like?"];
+        [self signalThatTestIsFinished];
+    }];
+    [self waitForTestToFinish];
+    
+    // send an intent and entity as input
+    PSLabel *label = [[PSLabel alloc] initWithName: @"Luis Color" andValue: @"Green"];
+    NSArray *entities = @[label];
+    [conv sendIntent: @"Favorite Color" withEntities: entities withRequest: request withCompletion:^(PSResponse *response) {
+        [self assertContains: response text: @"Green is a cool color"];
+        [self signalThatTestIsFinished];
+    }];
+    [self waitForTestToFinish];
 }
 
 - (void) testRockPaperScissors

@@ -60,6 +60,14 @@ withCompletion: (void (^)(PSResponse *response))block;
    withCompletion: (void (^)(PSResponse *response))block;
 
 ///
+/// Send an intent as user input to the Web API and return the response.
+///
+- (void) sendIntent: (NSString *) intent
+       withEntities: (NSArray *)entities
+        withRequest: (PSRequest *) request
+     withCompletion: (void (^)(PSResponse *response))block;
+
+///
 /// Send an activity name or ID to the Web API and return the response.
 ///
 - (void) sendActivity: (NSString *) activity
